@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package com.google.mihnita.msgfmt_proto;
+// option java_multiple_files = true;
+option java_package = "com.google.mihnita.msgfmt_proto";
+
+message MFDM { // For `MessageFormat Data Model`, but need a better name
+	repeated Part parts = 1;
+}
+
+message Part {
+  oneof p {
+    PlainText plain_text = 1;
+    Placeholder placeholder = 2;
+  }
+}
+
+message PlainText {
+  string value = 1;
+}
+
+message Placeholder {
+  string name = 1;
+  string type = 2;
+  map<string, string> knobs = 3;
+  map<string, MFDM> selectors = 4;
+}
