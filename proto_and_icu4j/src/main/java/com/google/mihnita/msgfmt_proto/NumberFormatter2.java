@@ -15,7 +15,7 @@ public class NumberFormatter2 implements IFormatter2 {
 
 	private final Format nf;
 
-	private NumberFormatter2(Format nf) {
+	NumberFormatter2(Format nf) {
 		this.nf = nf;
 	}
 

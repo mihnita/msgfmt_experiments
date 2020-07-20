@@ -11,7 +11,7 @@ public class DateTimeFormatter2 implements IFormatter2 {
 
 	private final DateFormat df;
 
-	private DateTimeFormatter2(DateFormat df) {
+	DateTimeFormatter2(DateFormat df) {
 		this.df = df;
 	}
 
