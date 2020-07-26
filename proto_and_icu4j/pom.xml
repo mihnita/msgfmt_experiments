@@ -17,7 +17,7 @@
 
 		<icu.version>65.1</icu.version>
 		<guava.version>28.2-jre</guava.version>
-		<google.protobuf.version>3.11.4</google.protobuf.version>
+		<google.protobuf.version>3.12.2</google.protobuf.version>
 		<junit.version>4.12</junit.version>
 	</properties>
 
@@ -43,6 +43,12 @@
 		    <artifactId>guava</artifactId>
 		    <version>${guava.version}</version>
 		</dependency>
+<dependency>
+    <groupId>com.google.protobuf</groupId>
+    <artifactId>protoc</artifactId>
+    <version>${google.protobuf.version}</version>
+    <type>pom</type>
+</dependency>
 
 		<!-- test time -->
 		<dependency>
@@ -63,23 +69,43 @@
 			</extension>
 		</extensions>
 		<plugins>
+      <!--
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-toolchains-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>toolchain</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <toolchains>
+            <protobuf>
+              <version>3.11.4</version>
+            </protobuf>
+          </toolchains>
+        </configuration>
+      </plugin>
+      -->
 			<plugin>
 				<groupId>org.xolstice.maven.plugins</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
 				<version>0.6.1</version>
-				<extensions>true</extensions>
 				<executions>
 					<execution>
-						<phase>generate-sources</phase>
 						<goals>
 							<goal>compile</goal>
 							<goal>test-compile</goal>
 						</goals>
-						<configuration>
-							<protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

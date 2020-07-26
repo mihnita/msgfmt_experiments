@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package com.google.mihnita.msgfmt_proto;
+// option java_multiple_files = true;
+option java_package = "com.google.mihnita.msgfmt_proto";
+
+message MFDM { // For `MessageFormat Data Model`, but need a better name
+	oneof oneof_msg {
+		SimpleMessage simple_message = 1;
+		SelectorMessage selector_message = 2;
+	}
+}
+
+message SelectorMessage {
+	repeated Switch switch = 1;
+	// I would really like this to be a map<Case, SimpleMessage>,
+	// but proto-buffers only allows integral or string type for keys
+	repeated Cases cases = 2;
+	repeated SimpleMessage messages = 3;
+}
+
+message Switch {
+	string name = 1; // the variable to switch on
+	string type = 2; // plural, ordinal, gender, select, ...
+}
+
+message Cases {
+	repeated Case case = 1;
+	message Case {
+		oneof oneof_case {
+			string alpha = 1;
+			double numeric = 2;
+		}
+	}
+}
+
+message SimpleMessage {
+	repeated Part parts = 1;
+}
+
+message Part {
+  oneof p {
+    PlainText plain_text = 1;
+    Placeholder placeholder = 2;
+  }
+}
+
+message PlainText {
+  string value = 1;
+}
+
+message Placeholder {
+  string name = 1;
+  string type = 2;
+  map<string, string> knobs = 3;
+  map<string, MFDM> selectors = 4;
+}
