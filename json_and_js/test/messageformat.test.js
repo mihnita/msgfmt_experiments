@@ -30,7 +30,7 @@ describe('Test for MessageFormat:', function () {
     }
 
     var expectedMsg = 'Hello John, using locale en-IN the date is 29 Dec 2019.\n' +
-        'A large currency amount is €\u00A01,23,45,67,890.98\n' +
+        'A large currency amount is €1,23,45,67,890.98\n' +
         'A percentage is 1,420%.\n'
 
     var mf = new MessageFormat(msg, locale)
