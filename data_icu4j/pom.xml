@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.google.mihnita.tests</groupId>
+	<artifactId>msgfmt_data</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>MessageFormat protobuffer</name>
+	<description>Prototype some MessageFormat functionality</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
+		<icu.version>67.1</icu.version>
+		<junit.version>4.13.1</junit.version>
+	</properties>
+
+	<dependencies>
+		<!-- compile time -->
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>${icu.version}</version>
+		</dependency>
+
+		<!-- test time -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>
