@@ -5,25 +5,19 @@ import java.util.Map;
 public class Placeholder {
 	final public String name;
 	final public String type;
-	final public Map<String, String> knobs;
-	final public Map<String, MFDM> selectors;
+	final public Map<String, String> flags;
 
 	public Placeholder(String name) {
-		this(name, null, null, null);
+		this(name, null, null);
 	}
 
 	public Placeholder(String name, String type) {
-		this(name, type, null, null);
+		this(name, type, null);
 	}
 
 	public Placeholder(String name, String type, Map<String, String> knobs) {
-		this(name, type, knobs, null);
-	}
-
-	public Placeholder(String name, String type, Map<String, String> knobs, Map<String, MFDM> selectors) {
 		this.name = name;
 		this.type = type;
-		this.knobs = knobs;
-		this.selectors = selectors;
+		this.flags = knobs;
 	}
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.google.mihnita.msgfmt.MessageFormat2;
 import com.google.mihnita.msgfmt.datamodel.Case;
-import com.google.mihnita.msgfmt.datamodel.Cases;
 import com.google.mihnita.msgfmt.datamodel.MFDM;
 import com.google.mihnita.msgfmt.datamodel.Part;
 import com.google.mihnita.msgfmt.datamodel.Placeholder;
@@ -112,6 +111,7 @@ public class Main {
 				+ "}";
 
 		// Here we build the proto message
+		Case[] cases_fs = { new Case("female"), new Case(1) };
 		Part[] parts_female_singular = {
 				ph("host_name"), text(" invited "), ph("guest_count"), text(" person to her party.")
 		};
@@ -130,21 +130,27 @@ public class Main {
 		Part[] parts_other_plural = {
 				ph("host_name"), text(" invited "), ph("guest_count"), text(" people to their party.")
 		};
-		Cases cases_fs = new Cases().addCase(new Case("female")).addCase(new Case(1));
-		Cases cases_fp = new Cases().addCase(new Case("female")).addCase(new Case("other"));
-		Cases cases_ms = new Cases().addCase(new Case("male")).addCase(new Case(1));
-		Cases cases_mp = new Cases().addCase(new Case("male")).addCase(new Case("other"));
-		Cases cases_os = new Cases().addCase(new Case("other")).addCase(new Case(1));
-		Cases cases_op = new Cases().addCase(new Case("other")).addCase(new Case("other"));
+		Case[] cases_fp = { new Case("female"), new Case("other") };
+		Case[] cases_ms = { new Case("male"), new Case(1) };
+		Case[] cases_mp = { new Case("male"), new Case("other") };
+		Case[] cases_os = { new Case("other"), new Case(1) };
+		Case[] cases_op = { new Case("other"), new Case("other") };
+
+//		Cases cases_fs = new Cases().addCase(new Case("female")).addCase(new Case(1));
+//		Cases cases_fp = new Cases().addCase(new Case("female")).addCase(new Case("other"));
+//		Cases cases_ms = new Cases().addCase(new Case("male")).addCase(new Case(1));
+//		Cases cases_mp = new Cases().addCase(new Case("male")).addCase(new Case("other"));
+//		Cases cases_os = new Cases().addCase(new Case("other")).addCase(new Case(1));
+//		Cases cases_op = new Cases().addCase(new Case("other")).addCase(new Case("other"));
 		SelectorMessage sm = new SelectorMessage();
 		sm.switches.add(new Switch("host_gender", "select"));
 		sm.switches.add(new Switch("guest_count", "plural"));
-		sm.msgMap.put(cases_fs, SimpleMessage.of(parts_female_singular));
-		sm.msgMap.put(cases_fp, SimpleMessage.of(parts_female_plural));
-		sm.msgMap.put(cases_ms, SimpleMessage.of(parts_male_singular));
-		sm.msgMap.put(cases_mp, SimpleMessage.of(parts_male_plural));
-		sm.msgMap.put(cases_os, SimpleMessage.of(parts_other_singular));
-		sm.msgMap.put(cases_op, SimpleMessage.of(parts_other_plural));
+		sm.msgMap.put(Arrays.asList(cases_fs), SimpleMessage.of(parts_female_singular));
+		sm.msgMap.put(Arrays.asList(cases_fp), SimpleMessage.of(parts_female_plural));
+		sm.msgMap.put(Arrays.asList(cases_ms), SimpleMessage.of(parts_male_singular));
+		sm.msgMap.put(Arrays.asList(cases_mp), SimpleMessage.of(parts_male_plural));
+		sm.msgMap.put(Arrays.asList(cases_os), SimpleMessage.of(parts_other_singular));
+		sm.msgMap.put(Arrays.asList(cases_op), SimpleMessage.of(parts_other_plural));
 
 		MFDM protoMessage = new MFDM(sm);
 

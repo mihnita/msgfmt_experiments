@@ -11,7 +11,6 @@ import java.util.StringJoiner;
 
 import com.google.mihnita.msgfmt.DateTimeFormatter2.DateTimeFormatterFactory;
 import com.google.mihnita.msgfmt.datamodel.Case;
-import com.google.mihnita.msgfmt.datamodel.Cases;
 import com.google.mihnita.msgfmt.datamodel.MFDM;
 import com.google.mihnita.msgfmt.datamodel.Part;
 import com.google.mihnita.msgfmt.datamodel.Placeholder;
@@ -72,7 +71,7 @@ public class MessageFormat2 {
 
 				IFormatterFactory ffactory = DEFAULT_KNOWN_FORMATTERS.get(type);
 				if (ffactory != null) {
-					IFormatter2 formatter = ffactory.formatterInstance(locale, name, type, ph.knobs);
+					IFormatter2 formatter = ffactory.formatterInstance(locale, name, type, ph.flags);
 					result.append(formatter.format(value));
 				} else {
 					result.append(value);
@@ -131,15 +130,15 @@ public class MessageFormat2 {
 //		System.out.println(ccase);
 		SimpleMessage simpleM = null;
 		SimpleMessage defaultSimpleM = null;
-		for ( Entry<Cases, SimpleMessage> e : m.msgMap.entrySet()) {
-			Cases currentCase = e.getKey();
+		for ( Entry<List<Case>, SimpleMessage> e : m.msgMap.entrySet()) {
+			List<Case> currentCase = e.getKey();
 //			System.out.println("Compare: " + ccase + " to " + toString(currentCase));
-			if (currentCase.cases.size() != ccase.size()) { // error
+			if (currentCase.size() != ccase.size()) { // error
 				throw new RuntimeException("TBD how we recover: selector.count != switch.count");
 			}
 			int score = 0;
 			for (int j = 0; j < ccase.size(); j++) {
-				Case c1 = currentCase.cases.get(j);
+				Case c1 = currentCase.get(j);
 				CaseBoth c2 = ccase.get(j);
 				if (c2.nr != null && c2.nr.equals(c1.numeric)) {
 					score++;
@@ -147,17 +146,17 @@ public class MessageFormat2 {
 					score++;
 				}
 			}
-			if (score == currentCase.cases.size()) {
+			if (score == currentCase.size()) {
 				simpleM = e.getValue();
 			} else {
 				score = 0;
 				for (int j = 0; j < ccase.size(); j++) {
-					Case c1 = currentCase.cases.get(j);
+					Case c1 = currentCase.get(j);
 					if ("other".equals(c1.alpha)) {
 						score++;
 					}
 				}
-				if (score == currentCase.cases.size()) {
+				if (score == currentCase.size()) {
 					defaultSimpleM = e.getValue();
 				}
 			}
@@ -170,10 +169,10 @@ public class MessageFormat2 {
 		throw new RuntimeException("TBD how we recover: simple message not found");
 	}
 
-	static String toString(Cases value) {
+	static String toString(List<Case> cases) {
 		StringJoiner joiner = new StringJoiner(", ", "[", "]");
 		joiner.setEmptyValue("[]");
-		for (Case c : value.cases) {
+		for (Case c : cases) {
 			if (c.alpha != null)
 				joiner.add("\"" + c.alpha + "\"");
 			else

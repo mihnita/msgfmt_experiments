@@ -6,5 +6,5 @@ import java.util.List;
 
 public class SelectorMessage {
 	final public List<Switch> switches = new ArrayList<>();
-	final public LinkedHashMap<Cases, SimpleMessage> msgMap = new LinkedHashMap<>(); // the order matters
+	final public LinkedHashMap<List<Case>, SimpleMessage> msgMap = new LinkedHashMap<>(); // the order matters
 }
