@@ -4,7 +4,7 @@
 		"module": "commonjs",
 		"outDir": "out",
 		"alwaysStrict": true,
-		"checkJs": true,
+		// "checkJs": true,
 		"strict": true,
 		"listEmittedFiles": true,
 		"noImplicitAny": true,

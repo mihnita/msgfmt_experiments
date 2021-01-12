@@ -1,0 +1,28 @@
+{
+  "name": "ts.mihnita.messageformat",
+  "version": "1.0.0",
+  "description": "Experimenting with data-model MessageFormat",
+  "homepage": "https://github.com/mihnita/msgfmt_experiments",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^5.2.7",
+    "rimraf": "^2.7.1"
+  },
+  "scripts": {
+    "clean": "rimraf temp/ && rimraf test-results/",
+    "pretest": "npm run clean",
+    "test": "mocha -r ts-node/register test/*.test.ts"
+  },
+  "author": "Mihai Nita",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihnita/msgfmt_experiments.git"
+  }
+}
