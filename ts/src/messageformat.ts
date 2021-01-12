@@ -12,13 +12,13 @@ export class SimpleMessage implements ISimpleMessage {
 		this.parts = parts;
 	}
 	format(locale: string, parameters: Map<string, object>): string {
-		var result = '';
-		for (var idx in this.parts) {
-			var part = this.parts[idx];
+		let result = '';
+		for (const idx in this.parts) {
+			const part = this.parts[idx];
 			if (part instanceof PlainText) {
-				result += part.format();
+				result = result.concat(part.format());
 			} else if (part instanceof Placeholder) {
-				result += part.format(locale, parameters);
+				result = result.concat(part.format(locale, parameters));
 			}
 		}
 		return result;
@@ -34,6 +34,8 @@ export class SelectorMessage implements ISelectorMessage {
 		this.messages = messages;
 	}
 	format(locale: string, parameters: Map<string, object>): string {
+		console.log(locale);
+		console.log(parameters);
 		throw new Error('Method not implemented.');
 	}
 }
@@ -57,26 +59,6 @@ export class PlainText implements IPlainText {
 	}
 }
 
-interface IFormatter {
-	format(value: object) : string;
-}
-
-class DateTimeFormater implements IFormatter {
-	locale: string;
-	flags: Object;
-	constructor (locale: string, flags: Map<string, string>) {
-		this.locale = locale;
-		this.flags = flags;
-	}
-	format(value: object): string {
-		if (value instanceof Date) {
-			return Intl.DateTimeFormat(this.locale, this.flags).format(value);
-		} else {
-			return '{' + value + '}';
-		}
-	}
-}
-
 export class Placeholder implements IPlaceholder {
 	name: string;
 	type: string;
@@ -94,9 +76,9 @@ export class Placeholder implements IPlaceholder {
 		this.flags = flags;
 	}
 	format(locale: string, parameters: Map<string, object>): string {
-		var value = parameters.get(this.name); // the runtime value of the placeholder
+		const value = parameters.get(this.name); // the runtime value of the placeholder
 
-		var options: {[k: string]: any} = {};
+		const options: {[k: string]: any} = {};
 		this.flags.forEach((val: string, key: string) => {
 			options[key] = val;
 		});
