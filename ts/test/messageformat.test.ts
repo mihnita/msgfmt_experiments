@@ -8,6 +8,7 @@ describe('Test for MessageFormat:', () => {
 
 	// The tests
     it('Simple placeholder test', () => {
+		const expectedMsg = 'Hello John!\n';
 		// TODO: some helper functions to make things less verbose
 		const parts = [
 			new PlainText('Hello '),
@@ -19,7 +20,6 @@ describe('Test for MessageFormat:', () => {
 			['user', 'John']
 		]);
 
-		const expectedMsg = 'Hello John!\n';
 		// TODO: locale should be passed to the constructor, not to format(...)
 		const mf = new SimpleMessage(parts);
 		// Also a friendliner method, something that takes a JS `Object`, not a Map
@@ -29,6 +29,7 @@ describe('Test for MessageFormat:', () => {
     });
 
     it('Date formatting test', () => {
+		const expectedMsg = 'Using locale en-IN the date is 29 Dec 2019.\n';
 		const parts = [
 			new PlainText('Using locale '),
 			new Placeholder('locale', '', new Map<string, string>()),
@@ -46,7 +47,6 @@ describe('Test for MessageFormat:', () => {
 			['theDay', new Date(2019, 11, 29)]
 		]);
 
-		const expectedMsg = 'Using locale en-IN the date is 29 Dec 2019.\n';
 		const mf = new SimpleMessage(parts);
 		const actual = mf.format(locale, msgArgs);
 
@@ -54,6 +54,7 @@ describe('Test for MessageFormat:', () => {
     });
 
     it('Currency formatting test', () => {
+		const expectedMsg = 'A large currency amount is €1,23,45,67,890.98\n';
 		const parts = [
 			new PlainText('A large currency amount is '),
 			new Placeholder('bigCount', 'number', new Map<string, string>([
@@ -67,7 +68,6 @@ describe('Test for MessageFormat:', () => {
 			['bigCount', 1234567890.97531]
 		]);
 
-		const expectedMsg = 'A large currency amount is €1,23,45,67,890.98\n';
 		const mf = new SimpleMessage(parts);
 		const actual = mf.format(locale, msgArgs);
 
@@ -75,6 +75,7 @@ describe('Test for MessageFormat:', () => {
     });
 
     it('Percentage formatting test', () => {
+		const expectedMsg = 'A percentage is 1,420%.\n';
 		const parts = [
 			new PlainText('A percentage is '),
 			new Placeholder('count', 'number', new Map<string, string>([['style', 'percent']])),
@@ -85,10 +86,9 @@ describe('Test for MessageFormat:', () => {
 			['count', 14.2]
 		]);
 
-		const expectedMsg = 'A percentage is 1,420%.\n';
 		const mf = new SimpleMessage(parts);
 		const actual = mf.format(locale, msgArgs);
 
         expect(expectedMsg).to.equal(actual);
     });
-})
+});
