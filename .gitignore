@@ -1,6 +1,10 @@
 # Compiled class file
 *.class
 
+# JS / TS dependencies (managed by npm)
+node_modules/
+
+
 # Log file
 *.log
 
