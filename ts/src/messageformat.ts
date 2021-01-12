@@ -11,7 +11,7 @@ export class SimpleMessage implements ISimpleMessage {
 	constructor(parts: IPart[]) {
 		this.parts = parts;
 	}
-	format(locale: string, parameters: Map<string, object>): string {
+	format(locale: string, parameters: Map<string, unknown>): string {
 		let result = '';
 		for (const idx in this.parts) {
 			const part = this.parts[idx];
@@ -33,7 +33,7 @@ export class SelectorMessage implements ISelectorMessage {
 		this.switches = switches;
 		this.messages = messages;
 	}
-	format(locale: string, parameters: Map<string, object>): string {
+	format(locale: string, parameters: Map<string, unknown>): string {
 		console.log(locale);
 		console.log(parameters);
 		throw new Error('Method not implemented.');
@@ -75,10 +75,10 @@ export class Placeholder implements IPlaceholder {
 		this.type = type;
 		this.flags = flags;
 	}
-	format(locale: string, parameters: Map<string, object>): string {
+	format(locale: string, parameters: Map<string, unknown>): string {
 		const value = parameters.get(this.name); // the runtime value of the placeholder
 
-		const options: {[k: string]: any} = {};
+		const options: {[k: string]: unknown} = {};
 		this.flags.forEach((val: string, key: string) => {
 			options[key] = val;
 		});
@@ -100,7 +100,7 @@ export class Placeholder implements IPlaceholder {
 				return Intl.NumberFormat(locale, options).format(value.valueOf());
 			}
 		} else if (value) {
-			return value.toString();
+			return String(value);
 		}
 		return '<undefined ' + this.name + '>';
 	}

@@ -16,13 +16,13 @@ describe('Test for MessageFormat:', () => {
 			new PlainText('!\n')
 		];
 
-		const msgArgs = new Map<string, Object>([
+		const msgArgs = new Map<string, unknown>([
 			['user', 'John']
 		]);
 
 		// TODO: locale should be passed to the constructor, not to format(...)
 		const mf = new SimpleMessage(parts);
-		// Also a friendliner method, something that takes a JS `Object`, not a Map
+		// Also a friendliner method, something that takes a JS `unknown`, not a Map
 		const actual = mf.format(locale, msgArgs);
 
         expect(expectedMsg).to.equal(actual);
@@ -42,7 +42,7 @@ describe('Test for MessageFormat:', () => {
 			new PlainText('.\n')
 		];
 
-		const msgArgs = new Map<string, Object>([
+		const msgArgs = new Map<string, unknown>([
 			['locale', locale],
 			['theDay', new Date(2019, 11, 29)]
 		]);
@@ -64,7 +64,7 @@ describe('Test for MessageFormat:', () => {
 			new PlainText('\n')
 		];
 
-		const msgArgs = new Map<string, Object>([
+		const msgArgs = new Map<string, unknown>([
 			['bigCount', 1234567890.97531]
 		]);
 
@@ -82,7 +82,7 @@ describe('Test for MessageFormat:', () => {
 			new PlainText('.\n')
 		];
 
-		const msgArgs = new Map<string, Object>([
+		const msgArgs = new Map<string, unknown>([
 			['count', 14.2]
 		]);
 

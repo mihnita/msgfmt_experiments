@@ -4,14 +4,14 @@ export type MFDM = // For `MessageFormat Data Model`, but need a better name
 
 export interface ISimpleMessage {
 	parts: IPart[];
-	format(locale: string, parameters: Map<string, object>): string;
+	format(locale: string, parameters: Map<string, unknown>): string;
 }
 
 export interface ISelectorMessage {
 	switches: ISwitch[];
 	// The order matters. So we need a "special map" that keeps the order
 	messages: Map<ICase[], ISimpleMessage>;
-	format(locale: string, parameters: Map<string, object>): string;
+	format(locale: string, parameters: Map<string, unknown>): string;
 }
 
 export interface ISwitch {
@@ -36,5 +36,5 @@ export interface IPlaceholder {
 	name: string;
 	type: string;
 	flags: Map<string, string>;
-	format(locale: string, parameters: Map<string, object>): string;
+	format(locale: string, parameters: Map<string, unknown>): string;
 }
