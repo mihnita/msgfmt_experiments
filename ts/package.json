@@ -14,8 +14,6 @@
     "@types/mocha": "^8.2.0"
   },
   "scripts": {
-    "clean": "",
-    "pretest": "npm run clean",
     "test": "mocha -r ts-node/register test/*.test.ts"
   },
   "author": "Mihai Nita",
