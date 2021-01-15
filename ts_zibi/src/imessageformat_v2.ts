@@ -25,8 +25,6 @@ export interface Variant {
 }
 
 export type VariantKey = StringLiteral | NumberLiteral;
-export type StringLiteral = string;
-export type NumberLiteral = string;
 
 export type InlineExpression = StringLiteral | NumberLiteral | FunctionReference | VariableReference;
 
