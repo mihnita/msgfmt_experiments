@@ -1,0 +1,26 @@
+// https://docs.google.com/presentation/d/1nBnWv3nQQnS0zMkM5qsIE6f5zki3YDHXR-hdxJo1Pc0
+// Slide 5
+// https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=4a2886f54ecf1ac4a665a07f296aed58
+
+pub struct Message(pub MessageValue);
+
+pub struct MessageValue(pub Pattern);
+
+pub struct Pattern(pub Vec<PatternElement>);
+
+pub enum PatternElement {
+    Text(String),
+    Placeholder(InlineExpression),
+}
+
+pub enum InlineExpression {
+    StringLiteral(String),
+    NumberLiteral(String),
+    FunctionReference {
+        id: Identifier,
+        arguments: Vec<InlineExpression>,
+    },
+    VariableReference(Identifier),
+}
+
+pub struct Identifier(pub String);

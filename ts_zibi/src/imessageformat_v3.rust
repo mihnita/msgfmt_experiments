@@ -1,0 +1,42 @@
+// https://docs.google.com/presentation/d/1nBnWv3nQQnS0zMkM5qsIE6f5zki3YDHXR-hdxJo1Pc0
+// Slide 10
+// Same as Slide 6, but adding Vec to selector & key (to support Multi-selectors)
+
+pub struct Message(pub MessageValue);
+
+pub enum MessageValue {
+    Single(Pattern),
+    Multi {
+        selector: Vec(InlineExpression),
+        variants: Vec<Variant>,
+    },
+}
+
+pub struct Pattern(pub Vec<PatternElement>);
+
+pub enum PatternElement {
+    Text(String),
+    Placeholder(InlineExpression),
+}
+
+pub struct Variant {
+    pub key: Vec(VariantKey),
+    pub value: Pattern,
+}
+
+pub enum VariantKey {
+    StringLiteral(String),
+    NumberLiteral(String),
+}
+
+pub enum InlineExpression {
+    StringLiteral(String),
+    NumberLiteral(String),
+    FunctionReference {
+        id: Identifier,
+        arguments: Vec<InlineExpression>,
+    },
+    VariableReference(Identifier),
+}
+
+pub struct Identifier(pub String);
