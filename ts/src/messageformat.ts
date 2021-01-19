@@ -2,41 +2,52 @@ import {ICase} from './imessageformat';
 import {IPart} from './imessageformat';
 import {IPlaceholder} from './imessageformat';
 import {IPlainText} from './imessageformat';
+import {IMessage, } from './imessageformat';
 import {ISelectorMessage, } from './imessageformat';
 import {ISimpleMessage} from './imessageformat';
 import {ISwitch} from './imessageformat';
 
-export class SimpleMessage implements ISimpleMessage {
+export abstract class Message implements IMessage {
+	id: string;
+	locale: string;
+	constructor(id: string, locale: string) {
+		this.id = id;
+		this.locale = locale;
+	}
+	abstract format(parameters: Map<string, unknown>): string;
+}
+
+export class SimpleMessage extends Message implements ISimpleMessage {
 	parts: IPart[];
-	constructor(parts: IPart[]) {
+	constructor(id: string, locale: string, parts: IPart[]) {
+		super(id, locale);
 		this.parts = parts;
 	}
-	format(locale: string, parameters: Map<string, unknown>): string {
+	format(parameters: Map<string, unknown>): string {
 		let result = '';
 		for (const idx in this.parts) {
 			const part = this.parts[idx];
 			if (part instanceof PlainText) {
 				result = result.concat(part.format());
 			} else if (part instanceof Placeholder) {
-				result = result.concat(part.format(locale, parameters));
+				result = result.concat(part.format(this.locale, parameters));
 			}
 		}
 		return result;
 	}
 }
 
-export class SelectorMessage implements ISelectorMessage {
+export class SelectorMessage extends Message implements ISelectorMessage {
 	switches: ISwitch[];
 	// The order matters. So we need a "special map" that keeps the order
 	messages: Map<ICase[], ISimpleMessage>;
-	constructor(switches: Switch[], messages: Map<ICase[], ISimpleMessage>) {
+	constructor(id: string, locale: string, switches: Switch[], messages: Map<ICase[], ISimpleMessage>) {
+		super(id, locale);
 		this.switches = switches;
 		this.messages = messages;
 	}
-	format(locale: string, parameters: Map<string, unknown>): string {
-		console.log(locale);
-		console.log(parameters);
-		throw new Error('Method not implemented.');
+	format(parameters: Map<string, unknown>): string {
+		throw new Error('Method not implemented yet.\nParameters: ' + parameters);
 	}
 }
 

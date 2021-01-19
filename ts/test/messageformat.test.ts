@@ -28,10 +28,10 @@ describe('Tests for MessageFormat:', () => {
 		];
 
 		// TODO: locale should be passed to the constructor, not to format(...)
-		const mf = new SimpleMessage(parts);
+		const mf = new SimpleMessage("id", locale, parts);
 		const msgArgs = objectToMap<unknown>({ user: 'John' });
 		// Also a friendliner method, something that takes a JS `unknown`, not a Map
-		const actual = mf.format(locale, msgArgs);
+		const actual = mf.format(msgArgs);
 
 		expect(expectedMsg).to.equal(actual);
 	});
@@ -46,9 +46,9 @@ describe('Tests for MessageFormat:', () => {
 			new PlainText('.\n')
 		];
 
-		const mf = new SimpleMessage(parts);
+		const mf = new SimpleMessage("id", locale, parts);
 		const msgArgs = objectToMap<unknown>({ locale: locale, theDay: new Date(2019, 11, 29) });
-		const actual = mf.format(locale, msgArgs);
+		const actual = mf.format(msgArgs);
 
 		expect(expectedMsg).to.equal(actual);
 	});
@@ -61,9 +61,9 @@ describe('Tests for MessageFormat:', () => {
 			new PlainText('\n')
 		];
 
-		const mf = new SimpleMessage(parts);
+		const mf = new SimpleMessage("id", locale, parts);
 		const msgArgs = objectToMap<unknown>({ bigCount: 1234567890.97531 });
-		const actual = mf.format(locale, msgArgs);
+		const actual = mf.format(msgArgs);
 
 		expect(expectedMsg).to.equal(actual);
 	});
@@ -76,9 +76,9 @@ describe('Tests for MessageFormat:', () => {
 			new PlainText('.\n')
 		];
 
-		const mf = new SimpleMessage(parts);
+		const mf = new SimpleMessage("id", locale, parts);
 		const msgArgs = objectToMap<unknown>({ count: 14.2 });
-		const actual = mf.format(locale, msgArgs);
+		const actual = mf.format(msgArgs);
 
 		expect(expectedMsg).to.equal(actual);
 	});
