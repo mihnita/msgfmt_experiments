@@ -1,8 +1,8 @@
 # Comparing MF2 Data Models
 
-Mihai  : https://github.com/mihnita/msgfmt_experiments/blob/master/ts/src/imessageformat.ts
-Elango : https://github.com/mihnita/msgfmt_experiments/blob/master/ts_elango/src/imessageformat_v3.ts
-Zibi   : https://github.com/mihnita/msgfmt_experiments/blob/master/ts_zibi/src/imessageformat_v3.ts
+Mihai  : https://github.com/mihnita/msgfmt_experiments/blob/main/ts/src/imessageformat.ts
+Elango : https://github.com/mihnita/msgfmt_experiments/blob/main/ts_elango/src/imessageformat_v3.ts
+Zibi   : https://github.com/mihnita/msgfmt_experiments/blob/main/ts_zibi/src/imessageformat_v3.ts
 Eemeli : https://github.com/eemeli/message-format-wg/blob/data-model/docs/data-model.d.ts
 
 
